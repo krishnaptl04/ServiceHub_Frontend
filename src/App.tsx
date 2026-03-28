@@ -1,20 +1,32 @@
-import { Button } from "@/components/ui/button"
-
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import DashboardLayout from "./layout/dashboard/DashboardLayout"
+import Dashboard from "./Features/Dashboard/Pages/Dashboard"
+import HomeLayout from "./layout/home/HomeLayout"
+import Home from "./Features/Home/pages/Home"
+import Login from "./Features/auth/Pages/Login"
+import Signup from "./Features/auth/Pages/Signup"
+import Service from "./Features/service/pages/Service"
 export function App() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
-      </div>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+
+          <Route element={<HomeLayout />}>
+            <Route path="" element={<Home />} />
+            <Route path="home" element={<Home />} />
+            <Route path="services" element={<Service />} />
+          </Route>
+        </Routes>
+        <Routes>
+          <Route element={<DashboardLayout />}>
+            <Route path="dashboard" element={<Dashboard />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   )
 }
 
