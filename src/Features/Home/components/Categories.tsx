@@ -5,6 +5,12 @@ const Categories = () => {
   return (
     <div>
       <section className="py-16">
+        <div className="mb-12 text-center">
+          <h2 className="mb-4">Popular Services</h2>
+          <p className="text-muted-foreground">
+            Browse our most requested service categories
+          </p>
+        </div>
         <div className="container mx-auto grid grid-cols-2 gap-4 px-4 md:grid-cols-6">
           <Card>
             <CardContent className="p-6 text-center">

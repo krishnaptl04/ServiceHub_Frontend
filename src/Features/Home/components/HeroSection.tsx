@@ -35,8 +35,10 @@ const HeroSection = () => {
 
           <Card>
             <CardContent className="space-y-4 p-6">
-              <h3>Quick Booking</h3>
-
+              <h3 className="text-sm font-bold">Quick Booking</h3>
+              <label className="mb-2 block text-xs font-bold">
+                Service Type
+              </label>
               <select className="w-full rounded border p-2">
                 <option>Plumbing</option>
                 <option>Electrical</option>
@@ -45,13 +47,17 @@ const HeroSection = () => {
                 <option>Painting</option>
                 <option>Cleaning</option>
               </select>
-
+              <label className="mb-2 block text-xs font-bold">
+                Your Location
+              </label>
               <input
                 type="text"
                 placeholder="Enter location"
                 className="w-full rounded border p-2"
               />
-
+              <label className="mb-2 block text-xs font-bold">
+                Preferred Date
+              </label>
               <input type="date" className="w-full rounded border p-2" />
 
               <Button className="w-full">Find Services</Button>

@@ -5,6 +5,7 @@ import HowItsWorks from "../components/HowItsWorks"
 import Providers from "../components/Providers"
 import Testimonials from "../components/Testimonials"
 import Offers from "../components/Offers"
+import CTA from "../components/CTA"
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <Providers />
       <Testimonials />
       <Offers />
+      <CTA />
     </div>
   )
 }
