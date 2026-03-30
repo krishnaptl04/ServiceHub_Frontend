@@ -40,6 +40,10 @@ const HeroSection = () => {
               <select className="w-full rounded border p-2">
                 <option>Plumbing</option>
                 <option>Electrical</option>
+                <option>HVAC</option>
+                <option>Carpentry</option>
+                <option>Painting</option>
+                <option>Cleaning</option>
               </select>
 
               <input

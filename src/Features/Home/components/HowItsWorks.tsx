@@ -1,4 +1,4 @@
-import { Calendar, CheckCircle2, Search, Star } from "lucide-react"
+import { Calendar, CheckCircle2, Search, Section, Star } from "lucide-react"
 
 const HowItsWorks = () => {
   return (
