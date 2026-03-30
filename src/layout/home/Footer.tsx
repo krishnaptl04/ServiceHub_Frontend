@@ -6,6 +6,32 @@ import { FaLinkedin } from "react-icons/fa"
 import { FaTwitterSquare } from "react-icons/fa"
 
 const Footer = () => {
+  const footerSections = [
+    {
+      title: "Company",
+      links: [
+        { label: "About Us", href: "/about" },
+        { label: "Careers", href: "/careers" },
+        { label: "Contact", href: "/contact" },
+      ],
+    },
+    {
+      title: "Services",
+      links: [
+        { label: "Browse Services", href: "/services" },
+        { label: "Become a Provider", href: "/provider/dashboard" },
+        { label: "How it Works", href: "/" },
+      ],
+    },
+    {
+      title: "Legal",
+      links: [
+        { label: "Privacy Policy", href: "/privacy" },
+        { label: "Terms of Service", href: "/terms" },
+        { label: "Cookie Policy", href: "/cookies" },
+      ],
+    },
+  ]
   return (
     <footer className="border-t bg-muted/50">
       <div className="container mx-auto px-4 py-12">
@@ -25,72 +51,30 @@ const Footer = () => {
               all home services.
             </p>
           </div>
+          {footerSections.map((section) => {
+            console.log("section", section.links)
 
-          {/* Company */}
-          <div>
-            <h4 className="mb-4 font-semibold">Company</h4>
-            <ul className="space-y-2">
-              <li>
-                <Link to="/about" className="footer-link">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/careers" className="footer-link">
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="footer-link">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
+            return (
+              <div>
+                <h4 className="mb-4 font-semibold">{section?.title}</h4>
 
-          {/* Services */}
-          <div>
-            <h4 className="mb-4 font-semibold">Services</h4>
-            <ul className="space-y-2">
-              <li>
-                <Link to="/services" className="footer-link">
-                  Browse Services
-                </Link>
-              </li>
-              <li>
-                <Link to="/provider/dashboard" className="footer-link">
-                  Become a Provider
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="footer-link">
-                  How it Works
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h4 className="mb-4 font-semibold">Legal</h4>
-            <ul className="space-y-2">
-              <li>
-                <Link to="/privacy" className="footer-link">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link to="/terms" className="footer-link">
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link to="/cookies" className="footer-link">
-                  Cookie Policy
-                </Link>
-              </li>
-            </ul>
-          </div>
+                <ul className="space-y-2">
+                  {section.links.map((item) => {
+                    return (
+                      <li>
+                        <Link
+                          to={item.href}
+                          className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                        >
+                          {item?.label}
+                        </Link>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+            )
+          })}
         </div>
 
         {/* Bottom */}

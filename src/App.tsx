@@ -6,6 +6,13 @@ import Home from "./Features/Home/pages/Home"
 import Login from "./Features/auth/Pages/Login"
 import Signup from "./Features/auth/Pages/Signup"
 import Service from "./Features/service/pages/Service"
+import AboutUs from "./Features/aboutus/pages/AboutUs"
+import Careers from "./Features/careers/pages/Careers"
+import Contact from "./Features/contact/pages/Contact"
+import CookiePolicy from "./Features/cookiepolicy/pages/CookiePolicy"
+import TermsOfService from "./Features/termsofservice/pages/TermsOfService"
+import PrivacyPolicy from "./Features/privacypolicy/pages/PrivacyPolicy"
+
 export function App() {
   return (
     <>
@@ -18,6 +25,12 @@ export function App() {
             <Route path="" element={<Home />} />
             <Route path="home" element={<Home />} />
             <Route path="services" element={<Service />} />
+            <Route path="about" element={<AboutUs />} />
+            <Route path="careers" element={<Careers />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="cookies" element={<CookiePolicy />} />
+            <Route path="terms" element={<TermsOfService />} />
+            <Route path="privacy" element={<PrivacyPolicy />} />
           </Route>
         </Routes>
         <Routes>

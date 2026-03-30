@@ -14,7 +14,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { LayoutDashboard, LogIn, Menu, Sun, User } from "lucide-react"
-import React from "react"
+
 import { Link } from "react-router-dom"
 
 const Navbar = () => {
