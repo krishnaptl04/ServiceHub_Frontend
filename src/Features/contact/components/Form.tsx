@@ -23,30 +23,30 @@ const Form = () => {
 
                 <div className="grid gap-4 md:grid-cols-2">
                   <div>
-                    <Label>Name</Label>
+                    <Label className="mb-2 font-bold">Name</Label>
                     <Input placeholder="Your name" />
                   </div>
 
                   <div>
-                    <Label>Email</Label>
+                    <Label className="mb-2 font-bold">Email</Label>
                     <Input placeholder="your@email.com" />
                   </div>
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2">
                   <div>
-                    <Label>Phone</Label>
+                    <Label className="mb-2 font-bold">Phone</Label>
                     <Input placeholder="Phone number" />
                   </div>
 
                   <div>
-                    <Label>Subject</Label>
+                    <Label className="mb-2 font-bold">Subject</Label>
                     <Input placeholder="Subject" />
                   </div>
                 </div>
 
                 <div>
-                  <Label>Message</Label>
+                  <Label className="mb-2 font-bold">Message</Label>
                   <Textarea rows={5} placeholder="Your message..." />
                 </div>
 

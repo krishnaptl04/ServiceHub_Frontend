@@ -12,7 +12,6 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react"
-import React from "react"
 
 const Careers = () => {
   return (
