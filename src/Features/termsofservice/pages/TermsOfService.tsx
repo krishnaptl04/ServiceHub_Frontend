@@ -1,5 +1,6 @@
+import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge, FileText } from "lucide-react"
+import { FileText } from "lucide-react"
 import React from "react"
 
 const TermsOfService = () => {

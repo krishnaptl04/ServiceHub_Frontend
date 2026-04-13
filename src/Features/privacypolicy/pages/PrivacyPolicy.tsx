@@ -1,5 +1,6 @@
+import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge, Shield } from "lucide-react"
+import { Shield } from "lucide-react"
 import React from "react"
 
 const PrivacyPolicy = () => {

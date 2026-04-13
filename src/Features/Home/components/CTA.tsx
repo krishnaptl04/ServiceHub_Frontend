@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 const CTA = () => {
   return (
     <div>
-      <section className="bg-muted/50 py-16">
+      <section className="bg-gradient-to-r from-primary to-secondary py-16 text-white">
         <div className="container mx-auto px-4 text-center">
           {/* Heading */}
           <div className="mb-8">

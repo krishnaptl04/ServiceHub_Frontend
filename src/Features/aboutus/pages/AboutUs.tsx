@@ -1,6 +1,7 @@
+import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 
-import { Award, Badge, Heart, Shield, Target, Users, Zap } from "lucide-react"
+import { Award, Heart, Shield, Target, Users, Zap } from "lucide-react"
 import React from "react"
 
 const AboutUs = () => {

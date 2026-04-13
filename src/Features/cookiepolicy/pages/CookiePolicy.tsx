@@ -1,6 +1,7 @@
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge, Cookie } from "lucide-react"
+import { Cookie } from "lucide-react"
 import React from "react"
 
 const CookiePolicy = () => {

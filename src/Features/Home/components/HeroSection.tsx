@@ -1,6 +1,7 @@
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, Badge } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 
 import { Link } from "react-router-dom"
 
