@@ -1,7 +1,10 @@
-import React from "react"
 
 const ContactSubmissions = () => {
-  return <div>ContactSubmissions</div>
+  return (
+    <div>
+      Contact Submissions
+    </div>
+  )
 }
 
 export default ContactSubmissions

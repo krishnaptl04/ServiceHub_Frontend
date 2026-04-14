@@ -12,12 +12,7 @@ import Contact from "./Features/contact/pages/Contact"
 import CookiePolicy from "./Features/cookiepolicy/pages/CookiePolicy"
 import TermsOfService from "./Features/termsofservice/pages/TermsOfService"
 import PrivacyPolicy from "./Features/privacypolicy/pages/PrivacyPolicy"
-import UserManagement from "./Features/admin/pages/UserManagement"
-import ProviderApproval from "./Features/admin/pages/ProviderApproval"
-import CategoryManagement from "./Features/admin/pages/CategoryManagement"
-import BookingMonitoring from "./Features/admin/pages/BookingMonitoring"
-import ContactSubmissions from "./Features/admin/pages/ContactSubmissions"
-import Reviews from "./Features/admin/pages/Reviews"
+
 import ProviderDashboard from "./Features/provider/ProviderDashboard"
 import Availability from "./Features/provider/Availability"
 import BookingRequests from "./Features/provider/BookingRequests"
@@ -27,7 +22,13 @@ import ActiveJobs from "./Features/provider/ActiveJobs"
 import MyBookings from "./Features/customer/MyBookings"
 import MyReviews from "./Features/customer/MyReviews"
 import Profile from "./Features/customer/Profile"
-import NotFoundPage from "./Features/common/NotFoundPage"
+// import NotFoundPage from "./Features/common/NotFoundPage"
+import UserManagement from "./Features/auth/admin/pages/UserManagement"
+import ProviderApproval from "./Features/auth/admin/pages/ProviderApproval"
+import CategoryManagement from "./Features/auth/admin/pages/CategoryManagement"
+import BookingMonitoring from "./Features/auth/admin/pages/BookingMonitoring"
+import Reviews from "./Features/auth/admin/pages/Reviews"
+import ContactSubmissions from "./Features/auth/admin/pages/ContactSubmissions"
 
 export function App() {
   return (
@@ -36,7 +37,7 @@ export function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="*" element={<NotFoundPage />} />
+          {/* <Route path="*" element={<NotFoundPage />} /> */}
           <Route element={<HomeLayout />}>
             <Route path="" element={<Home />} />
             <Route path="home" element={<Home />} />
@@ -51,7 +52,7 @@ export function App() {
         </Routes>
         <Routes>
           <Route element={<DashboardLayout />}>
-            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="admin/dashboard" element={<Dashboard />} />
             <Route path="admin/users" element={<UserManagement />} />
             <Route path="admin/approvals" element={<ProviderApproval />} />
             <Route path="admin/categories" element={<CategoryManagement />} />

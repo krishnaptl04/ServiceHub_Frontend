@@ -1,32 +1,84 @@
-import { Button } from "@/components/ui/button"
 import {
+  Sidebar as SidebarRoot,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+} from "@/components/ui/sidebar"
+
+import {
+ 
+  Clock,
+  ChevronDown,
+} from "lucide-react"
+import {
+  LayoutDashboard,
   Calendar,
+  User,
+  FileText,
   CheckSquare,
   ClipboardList,
-  Clock,
+  Star,
   DollarSign,
-  FileText,
-  LayoutDashboard,
-  Mail,
-  MessageSquare,
-  Shield,
-  User,
   Users,
+  Shield,
+  MessageSquare,
+  Mail,
 } from "lucide-react"
-import React from "react"
-import { Link, useLocation } from "react-router-dom"
+
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu"
+
+// import {
+//   Collapsible,
+//   CollapsibleTrigger,
+//   CollapsibleContent,
+// } from "@/components/ui/collapsible"
+
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip"
+
+import { Button } from "@/components/ui/button"
+import { Link } from "react-router-dom"
+
+/* ---------------- CONFIG ---------------- */
+
+const workspace = {
+  name: "ServiceHub",
+  role: "Admin",
+}
+
+
+const user = {
+  name: "Admin",
+  email: "admin@servicehub.com",
+  avatar: "https://github.com/shadcn.png",
+}
+
+/* ---------------- SIDEBAR ---------------- */
+
 const getNavItems = (role: "customer" | "provider" | "admin") => {
   switch (role) {
     case "customer":
       return [
         {
           name: "Dashboard",
-          href: "/customer/dashboard",
+          href: "/dashboard",
           icon: LayoutDashboard,
         },
-        { name: "My Bookings", href: "/customer/bookings", icon: Calendar },
-        { name: "My Reviews", href: "/customer/reviews", icon: Star },
-        { name: "Profile", href: "/customer/profile", icon: User },
+        { name: "My Bookings", href: "/bookings", icon: Calendar },
+        { name: "My Reviews", href: "/reviews", icon: Star },
+        { name: "Profile", href: "/profile", icon: User },
       ]
     case "provider":
       return [
@@ -49,7 +101,7 @@ const getNavItems = (role: "customer" | "provider" | "admin") => {
       return [
         { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
         { name: "User Management", href: "/admin/users", icon: Users },
-        { name: "Provider Approval", href: "/admin/providers", icon: Shield },
+        { name: "Provider Approval", href: "/admin/approvals", icon: Shield },
         { name: "Categories", href: "/admin/categories", icon: FileText },
         { name: "Bookings", href: "/admin/bookings", icon: Calendar },
         { name: "Reviews", href: "/admin/reviews", icon: MessageSquare },
@@ -59,34 +111,116 @@ const getNavItems = (role: "customer" | "provider" | "admin") => {
 }
 
 const Sidebar = () => {
-  const location = useLocation()
-  const isActive = (href: string) => location.pathname === href
-  const navItems = getNavItems("admin")
+  const mainMenu = getNavItems("admin") // Change role as needed
   return (
-    <div className="space-y-4">
-      <div className="p-4">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-            <span className="text-lg text-primary-foreground">S</span>
-          </div>
-          <span className="text-xl font-semibold">ServiceHub</span>
-        </Link>
-      </div>
-
-      <nav className="space-y-1 px-2">
-        {navItems.map((item) => (
-          <Link key={item.href} to={item.href}>
+    <SidebarRoot collapsible="icon">
+      {/* HEADER */}
+      <SidebarHeader>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
             <Button
-              variant={isActive(item.href) ? "default" : "ghost"}
-              className="w-full justify-start"
+              variant={"ghost"}
+              className="py-7 group-data-[collapsible=icon]:p-0"
             >
-              <item.icon className="mr-3 h-4 w-4" />
-              {item.name}
+              {/* Logo */}
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+                <span className="text-sm font-bold text-primary-foreground">
+                  {workspace.name.charAt(0)}
+                </span>
+              </div>
+
+              {/* Text */}
+              <div className="flex flex-col text-left group-data-[collapsible=icon]:hidden">
+                <span className="text-sm font-semibold">{workspace.name}</span>
+                <span className="text-xs text-muted-foreground">
+                  {workspace.role}
+                </span>
+              </div>
+
+              <ChevronDown className="ml-auto h-4 w-4 group-data-[collapsible=icon]:hidden" />
             </Button>
-          </Link>
-        ))}
-      </nav>
-    </div>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent align="start">
+            <DropdownMenuItem>{workspace.name}</DropdownMenuItem>
+            <DropdownMenuItem>Create categories</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </SidebarHeader>
+
+      {/* CONTENT */}
+      <SidebarContent className="p-3 group-data-[collapsible=icon]:p-1">
+        <SidebarMenu>
+          {mainMenu.map((item) => {
+            const Icon = item.icon
+
+            return (
+              <SidebarMenuItem key={item.name}>
+                <Link to={item.href}>
+                  {" "}
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <SidebarMenuButton className="p-5 px-2">
+                        <Icon />
+
+                        <span className="group-data-[collapsible=icon]:hidden">
+                          {item.name}
+                        </span>
+                      </SidebarMenuButton>
+                    </TooltipTrigger>
+
+                    <TooltipContent
+                      side="right"
+                      className="hidden group-data-[collapsible=icon]:block"
+                    >
+                      {item.name}
+                    </TooltipContent>
+                  </Tooltip>{" "}
+                </Link>
+              </SidebarMenuItem>
+            )
+          })}
+        </SidebarMenu>
+       
+        {/* MAIN MENU */}
+      </SidebarContent>
+
+      {/* FOOTER */}
+      <SidebarFooter>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant={"ghost"}
+              className="py-7 group-data-[collapsible=icon]:p-0"
+            >
+              {" "}
+              <img src={user.avatar} className="h-8 w-8 rounded-full" />
+              <div className="flex flex-col text-left group-data-[collapsible=icon]:hidden">
+                <span className="text-sm font-medium">{user.name}</span>
+                <span className="text-xs text-muted-foreground">
+                  {user.email}
+                 </span>
+              </div>
+              <ChevronDown className="ml-auto h-4 w-4 group-data-[collapsible=icon]:hidden" />
+            </Button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent side="right" align="end">
+            <DropdownMenuItem>Upgrade to Pro</DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem>Account</DropdownMenuItem>
+            <DropdownMenuItem>Billing</DropdownMenuItem>
+            <DropdownMenuItem>Notifications</DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem>Log out</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </SidebarFooter>
+    </SidebarRoot>
   )
 }
 
