@@ -36,6 +36,24 @@ export function App() {
         <Routes>
           <Route element={<DashboardLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="admin/users" element={<UserManagement />} />
+            <Route path="admin/approvals" element={<ProviderApproval />} />
+            <Route path="admin/categories" element={<CategoryManagement />} />
+            <Route path="admin/Bookings" element={<BookingMonitoring />} />
+            <Route path="admin/reviews" element={<Reviews />} />
+            <Route path="admin/contact" element={<ContactSubmissions />} />
+
+            <Route path="provider/dashboard" element={<ProviderDashboard />} />
+            <Route path="provider/availability" element={<Availability />} />
+            <Route path="provider/requests" element={<BookingRequests />} />
+            <Route path="provider/earnings" element={<Earnings />} />
+            <Route path="provider/profile" element={<ProviderProfile />} />
+            <Route path="provider/jobs" element={<ActiveJobs />} />
+
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/bookings" element={<MyBookings />} />
+            <Route path="/reviews" element={<MyReviews />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
         </Routes>
       </BrowserRouter>
