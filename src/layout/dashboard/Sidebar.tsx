@@ -8,11 +8,7 @@ import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar"
 
-import {
- 
-  Clock,
-  ChevronDown,
-} from "lucide-react"
+import { Clock, ChevronDown } from "lucide-react"
 import {
   LayoutDashboard,
   Calendar,
@@ -55,13 +51,12 @@ import { Link } from "react-router-dom"
 
 const workspace = {
   name: "ServiceHub",
-  role: "Admin",
+  role: "customer",
 }
 
-
 const user = {
-  name: "Admin",
-  email: "admin@servicehub.com",
+  name: "customer",
+  email: "customer@servicehub.com",
   avatar: "https://github.com/shadcn.png",
 }
 
@@ -111,7 +106,7 @@ const getNavItems = (role: "customer" | "provider" | "admin") => {
 }
 
 const Sidebar = () => {
-  const mainMenu = getNavItems("admin") // Change role as needed
+  const mainMenu = getNavItems("customer") // Change role as needed
   return (
     <SidebarRoot collapsible="icon">
       {/* HEADER */}
@@ -181,7 +176,7 @@ const Sidebar = () => {
             )
           })}
         </SidebarMenu>
-       
+
         {/* MAIN MENU */}
       </SidebarContent>
 
@@ -199,7 +194,7 @@ const Sidebar = () => {
                 <span className="text-sm font-medium">{user.name}</span>
                 <span className="text-xs text-muted-foreground">
                   {user.email}
-                 </span>
+                </span>
               </div>
               <ChevronDown className="ml-auto h-4 w-4 group-data-[collapsible=icon]:hidden" />
             </Button>

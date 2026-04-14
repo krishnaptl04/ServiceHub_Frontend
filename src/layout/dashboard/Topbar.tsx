@@ -12,14 +12,14 @@ import {
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
-import { Bell,Sun, Moon, User, Settings, LogOut } from "lucide-react"
+import { Bell, Sun, Moon, User, Settings, LogOut } from "lucide-react"
 
 import { Link } from "react-router-dom"
 
 /* ---------------- DATA ---------------- */
 
 const portal = {
-  role: "Admin",
+  role: "Customer",
   user: {
     name: "John Doe",
     email: "john@example.com",
