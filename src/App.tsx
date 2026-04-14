@@ -18,6 +18,16 @@ import CategoryManagement from "./Features/admin/pages/CategoryManagement"
 import BookingMonitoring from "./Features/admin/pages/BookingMonitoring"
 import ContactSubmissions from "./Features/admin/pages/ContactSubmissions"
 import Reviews from "./Features/admin/pages/Reviews"
+import ProviderDashboard from "./Features/provider/ProviderDashboard"
+import Availability from "./Features/provider/Availability"
+import BookingRequests from "./Features/provider/BookingRequests"
+import Earnings from "./Features/provider/Earnings"
+import ProviderProfile from "./Features/provider/ProviderProfile"
+import ActiveJobs from "./Features/provider/ActiveJobs"
+import MyBookings from "./Features/customer/MyBookings"
+import MyReviews from "./Features/customer/MyReviews"
+import Profile from "./Features/customer/Profile"
+import NotFoundPage from "./Features/common/NotFoundPage"
 
 export function App() {
   return (
@@ -26,7 +36,7 @@ export function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-
+          <Route path="*" element={<NotFoundPage />} />
           <Route element={<HomeLayout />}>
             <Route path="" element={<Home />} />
             <Route path="home" element={<Home />} />
