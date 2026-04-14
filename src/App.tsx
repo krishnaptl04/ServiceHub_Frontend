@@ -12,6 +12,12 @@ import Contact from "./Features/contact/pages/Contact"
 import CookiePolicy from "./Features/cookiepolicy/pages/CookiePolicy"
 import TermsOfService from "./Features/termsofservice/pages/TermsOfService"
 import PrivacyPolicy from "./Features/privacypolicy/pages/PrivacyPolicy"
+import UserManagement from "./Features/admin/pages/UserManagement"
+import ProviderApproval from "./Features/admin/pages/ProviderApproval"
+import CategoryManagement from "./Features/admin/pages/CategoryManagement"
+import BookingMonitoring from "./Features/admin/pages/BookingMonitoring"
+import ContactSubmissions from "./Features/admin/pages/ContactSubmissions"
+import Reviews from "./Features/admin/pages/Reviews"
 
 export function App() {
   return (
