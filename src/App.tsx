@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import DashboardLayout from "./layout/dashboard/DashboardLayout"
-import Dashboard from "./Features/Dashboard/Pages/Dashboard"
+
 import HomeLayout from "./layout/home/HomeLayout"
 import Home from "./Features/Home/pages/Home"
 import Login from "./Features/auth/Pages/Login"
@@ -29,6 +29,9 @@ import CategoryManagement from "./Features/auth/admin/pages/CategoryManagement"
 import BookingMonitoring from "./Features/auth/admin/pages/BookingMonitoring"
 import Reviews from "./Features/auth/admin/pages/Reviews"
 import ContactSubmissions from "./Features/auth/admin/pages/ContactSubmissions"
+import BookingDetail from "./Features/customer/BookingDetail"
+import Dashboard from "./Features/customer/Dashboard"
+import AdminDashboard from "./Features/auth/admin/pages/AdminDashboard"
 
 export function App() {
   return (
@@ -52,7 +55,7 @@ export function App() {
         </Routes>
         <Routes>
           <Route element={<DashboardLayout />}>
-            <Route path="admin/dashboard" element={<Dashboard />} />
+            <Route path="admin/dashboard" element={<AdminDashboard />} />
             <Route path="admin/users" element={<UserManagement />} />
             <Route path="admin/approvals" element={<ProviderApproval />} />
             <Route path="admin/categories" element={<CategoryManagement />} />
@@ -71,6 +74,7 @@ export function App() {
             <Route path="/bookings" element={<MyBookings />} />
             <Route path="/reviews" element={<MyReviews />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/customer/bookings" element={<BookingDetail />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -51,12 +51,12 @@ import { Link } from "react-router-dom"
 
 const workspace = {
   name: "ServiceHub",
-  role: "customer",
+  role: "provider",
 }
 
 const user = {
-  name: "customer",
-  email: "customer@servicehub.com",
+  name: "Provider",
+  email: "provider@servicehub.com",
   avatar: "https://github.com/shadcn.png",
 }
 
@@ -106,7 +106,7 @@ const getNavItems = (role: "customer" | "provider" | "admin") => {
 }
 
 const Sidebar = () => {
-  const mainMenu = getNavItems("customer") // Change role as needed
+  const mainMenu = getNavItems("provider") // Change role as needed
   return (
     <SidebarRoot collapsible="icon">
       {/* HEADER */}

@@ -19,7 +19,7 @@ import { Link } from "react-router-dom"
 /* ---------------- DATA ---------------- */
 
 const portal = {
-  role: "Customer",
+  role: "Provider",
   user: {
     name: "John Doe",
     email: "john@example.com",

@@ -1,218 +1,162 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import {
-  Calendar,
-  Clock,
-  Mail,
-  MapPin,
-  MessageSquare,
-  Phone,
-} from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Calendar, Filter } from "lucide-react"
 import React from "react"
+import { Link } from "react-router-dom"
 
 const MyBookings = () => {
-  const booking = {
-    id: "1001",
-    category: "Plumbing",
-    status: "confirmed",
-    urgency: "urgent",
-    serviceName: "Pipe Leak Repair",
-    providerName: "Mike Johnson",
-    providerPhone: "+91 9876543210",
-    providerEmail: "mike@example.com",
-    date: "2026-04-20",
-    time: "10:00 AM",
-    address: {
-      street: "123 Main Street",
-      city: "Surat",
-      state: "Gujarat",
-      zip: "395007",
+  const bookings = [
+    {
+      id: 1,
+      category: "Plumbing",
+      status: "pending",
+      urgency: "high",
+      serviceName: "Pipe Leak Fix",
+      providerName: "John Doe",
+      date: "2026-04-20",
+      time: "10:00 AM",
+      totalPrice: 50,
     },
-    description: "Fix leaking pipe in kitchen sink.",
-    notes: "Please come early.",
-    price: 100,
-    platformFee: 10,
-    totalPrice: 110,
-  }
-
-  const timeline = [
-    { status: "Requested", date: "April 10, 2026", completed: true },
-    { status: "Confirmed", date: "April 11, 2026", completed: true },
-    { status: "In Progress", date: "Scheduled for April 20", completed: false },
-    { status: "Completed", date: "Pending", completed: false },
+    {
+      id: 2,
+      category: "Cleaning",
+      status: "confirmed",
+      urgency: "regular",
+      serviceName: "Home Cleaning",
+      providerName: "Jane Smith",
+      date: "2026-04-18",
+      time: "02:00 PM",
+      totalPrice: 80,
+    },
+    {
+      id: 3,
+      category: "Electrical",
+      status: "completed",
+      urgency: "regular",
+      serviceName: "Fan Repair",
+      providerName: "Mike Ross",
+      date: "2026-04-10",
+      time: "11:30 AM",
+      totalPrice: 40,
+    },
   ]
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "pending":
+        return "bg-yellow-500"
+      case "confirmed":
+        return "bg-blue-500"
+      case "completed":
+        return "bg-green-500"
+      default:
+        return "bg-gray-500"
+    }
+  }
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <Card>
-        <CardContent className="flex items-center justify-between p-6">
-          <div>
-            <div className="mb-2 flex gap-2">
-              <Badge variant="secondary">{booking.category}</Badge>
-              <Badge className="bg-blue-500 text-white">{booking.status}</Badge>
-              <Badge variant="destructive">{booking.urgency}</Badge>
+      <Tabs defaultValue="all" className="w-full">
+        <div className="mb-6 flex items-center justify-between">
+          <TabsList>
+            <TabsTrigger value="all">All Bookings</TabsTrigger>
+            <TabsTrigger value="pending">Pending</TabsTrigger>
+            <TabsTrigger value="confirmed">Confirmed</TabsTrigger>
+            <TabsTrigger value="completed">Completed</TabsTrigger>
+          </TabsList>
+
+          <Button variant="outline" size="sm">
+            <Filter className="mr-2 h-4 w-4" />
+            Filter
+          </Button>
+        </div>
+
+        {/* SAME UI in all tabs */}
+        <TabsContent value="all">
+          <BookingsList bookings={bookings} getStatusColor={getStatusColor} />
+        </TabsContent>
+
+        <TabsContent value="pending">
+          <BookingsList bookings={bookings} getStatusColor={getStatusColor} />
+        </TabsContent>
+
+        <TabsContent value="confirmed">
+          <BookingsList bookings={bookings} getStatusColor={getStatusColor} />
+        </TabsContent>
+
+        <TabsContent value="completed">
+          <BookingsList bookings={bookings} getStatusColor={getStatusColor} />
+        </TabsContent>
+      </Tabs>
+    </div>
+  )
+}
+
+function BookingsList({
+  bookings,
+  getStatusColor,
+}: {
+  bookings: any[]
+  getStatusColor: (status: string) => string
+}) {
+  return (
+    <div className="space-y-4">
+      {bookings.map((booking) => (
+        <Card key={booking.id} className="transition-shadow hover:shadow-md">
+          <CardContent className="p-6">
+            <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
+              <div className="flex-1">
+                <div className="mb-3 flex items-center gap-2">
+                  <Badge variant="secondary">{booking.category}</Badge>
+                  <Badge className={getStatusColor(booking.status)}>
+                    {booking.status}
+                  </Badge>
+                  {booking.urgency !== "regular" && (
+                    <Badge variant="destructive">{booking.urgency}</Badge>
+                  )}
+                </div>
+
+                <h4 className="mb-2">{booking.serviceName}</h4>
+
+                <p className="mb-2 text-sm text-muted-foreground">
+                  Provider: {booking.providerName}
+                </p>
+
+                <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                  <span className="flex items-center gap-1">
+                    <Calendar className="h-4 w-4" />
+                    {new Date(booking.date).toLocaleDateString()}
+                  </span>
+                  <span>•</span>
+                  <span>{booking.time}</span>
+                  <span>•</span>
+                  <span className="font-semibold text-foreground">
+                    ${booking.totalPrice}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                <Button variant="outline" size="sm" asChild>
+                  <Link to="#">View Details</Link>
+                </Button>
+
+                <Button variant="outline" size="sm">
+                  Reschedule
+                </Button>
+
+                <Button variant="destructive" size="sm">
+                  Cancel
+                </Button>
+
+                <Button size="sm">Leave Review</Button>
+              </div>
             </div>
-            <h1>{booking.serviceName}</h1>
-            <p className="text-muted-foreground">Booking ID: #{booking.id}</p>
-          </div>
-
-          <div className="flex gap-2">
-            <Button variant="outline">Reschedule</Button>
-            <Button variant="outline">Contact Provider</Button>
-            <Button variant="destructive">Cancel Booking</Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      <div className="grid gap-6 lg:grid-cols-3">
-        {/* Left Content */}
-        <div className="space-y-6 lg:col-span-2">
-          {/* Timeline */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Booking Timeline</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {timeline.map((step, index) => (
-                <div key={index} className="mb-4 flex gap-4">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white">
-                    {step.completed ? "✓" : index + 1}
-                  </div>
-                  <div>
-                    <p>{step.status}</p>
-                    <p className="text-sm text-muted-foreground">{step.date}</p>
-                  </div>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-
-          {/* Service Details */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Service Details</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p>
-                <strong>Service:</strong> {booking.serviceName}
-              </p>
-
-              <Separator />
-
-              <div className="flex gap-4">
-                <span className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
-                  {booking.date}
-                </span>
-                <span className="flex items-center gap-2">
-                  <Clock className="h-4 w-4" />
-                  {booking.time}
-                </span>
-              </div>
-
-              <Separator />
-
-              <p className="flex gap-2">
-                <MapPin className="h-4 w-4" />
-                {booking.address.street}, {booking.address.city}
-              </p>
-
-              <Separator />
-
-              <p>{booking.description}</p>
-
-              <Separator />
-
-              <p>
-                <strong>Notes:</strong> {booking.notes}
-              </p>
-            </CardContent>
-          </Card>
-
-          {/* Payment */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Payment Info</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex justify-between">
-                <span>Service Fee</span>
-                <span>${booking.price}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Platform Fee</span>
-                <span>${booking.platformFee}</span>
-              </div>
-              <Separator />
-              <div className="flex justify-between font-bold">
-                <span>Total</span>
-                <span>${booking.totalPrice}</span>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Sidebar */}
-        <div className="space-y-6">
-          {/* Provider */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Provider</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center gap-4">
-                <Avatar>
-                  <AvatarFallback>MJ</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p>{booking.providerName}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {booking.category} Expert
-                  </p>
-                </div>
-              </div>
-
-              <Separator className="my-4" />
-
-              <p className="flex gap-2">
-                <Phone className="h-4 w-4" />
-                {booking.providerPhone}
-              </p>
-              <p className="flex gap-2">
-                <Mail className="h-4 w-4" />
-                {booking.providerEmail}
-              </p>
-
-              <Button className="mt-4 w-full">
-                <MessageSquare className="mr-2 h-4 w-4" />
-                Message
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Quick Actions */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <Button variant="outline" className="w-full">
-                Reschedule
-              </Button>
-              <Button variant="outline" className="w-full">
-                Update Address
-              </Button>
-              <Button variant="destructive" className="w-full">
-                Cancel Booking
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+          </CardContent>
+        </Card>
+      ))}
     </div>
   )
 }
