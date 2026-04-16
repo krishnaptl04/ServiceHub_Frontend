@@ -46,19 +46,7 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
-
-/* ---------------- CONFIG ---------------- */
-
-const workspace = {
-  name: "ServiceHub",
-  role: "provider",
-}
-
-const user = {
-  name: "Provider",
-  email: "provider@servicehub.com",
-  avatar: "https://github.com/shadcn.png",
-}
+import { useAuthStore } from "@/store/useAuthStore"
 
 /* ---------------- SIDEBAR ---------------- */
 
@@ -106,7 +94,8 @@ const getNavItems = (role: "customer" | "provider" | "admin") => {
 }
 
 const Sidebar = () => {
-  const mainMenu = getNavItems("provider") // Change role as needed
+  const { user } = useAuthStore()
+  const mainMenu = getNavItems(user?.role as any) // Change role as needed
   return (
     <SidebarRoot collapsible="icon">
       {/* HEADER */}
@@ -119,16 +108,14 @@ const Sidebar = () => {
             >
               {/* Logo */}
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                <span className="text-sm font-bold text-primary-foreground">
-                  {workspace.name.charAt(0)}
-                </span>
+                <span className="text-sm font-bold text-primary-foreground"></span>
               </div>
 
               {/* Text */}
               <div className="flex flex-col text-left group-data-[collapsible=icon]:hidden">
-                <span className="text-sm font-semibold">{workspace.name}</span>
+                <span className="text-sm font-semibold">ServiceHub</span>
                 <span className="text-xs text-muted-foreground">
-                  {workspace.role}
+                  {user?.role}
                 </span>
               </div>
 
@@ -137,12 +124,13 @@ const Sidebar = () => {
           </DropdownMenuTrigger>
 
           <DropdownMenuContent align="start">
-            <DropdownMenuItem>{workspace.name}</DropdownMenuItem>
+            <Link to="/">
+              <DropdownMenuItem>ServiceHub</DropdownMenuItem>
+            </Link>
             <DropdownMenuItem>Create categories</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarHeader>
-
       {/* CONTENT */}
       <SidebarContent className="p-3 group-data-[collapsible=icon]:p-1">
         <SidebarMenu>
@@ -178,8 +166,7 @@ const Sidebar = () => {
         </SidebarMenu>
 
         {/* MAIN MENU */}
-      </SidebarContent>
-
+      </SidebarContent>{" "}
       {/* FOOTER */}
       <SidebarFooter>
         <DropdownMenu>
@@ -189,11 +176,14 @@ const Sidebar = () => {
               className="py-7 group-data-[collapsible=icon]:p-0"
             >
               {" "}
-              <img src={user.avatar} className="h-8 w-8 rounded-full" />
+              <img
+                src="https://github.com/shadcn.png"
+                className="h-8 w-8 rounded-full"
+              />
               <div className="flex flex-col text-left group-data-[collapsible=icon]:hidden">
-                <span className="text-sm font-medium">{user.name}</span>
+                <span className="text-sm font-medium">{user?.name}</span>
                 <span className="text-xs text-muted-foreground">
-                  {user.email}
+                  {user?.email}
                 </span>
               </div>
               <ChevronDown className="ml-auto h-4 w-4 group-data-[collapsible=icon]:hidden" />

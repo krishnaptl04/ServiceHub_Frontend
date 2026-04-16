@@ -13,11 +13,26 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { useAuthStore } from "@/store/useAuthStore"
 import { LayoutDashboard, LogIn, Menu, Sun, User } from "lucide-react"
 
 import { Link } from "react-router-dom"
 
 const Navbar = () => {
+  const { isAuthenticated, logout, user } = useAuthStore()
+
+  const getDashboardRoute = () => {
+    switch (user?.role) {
+      case "admin":
+        return "/admin/dashboard"
+      case "provider":
+        return "/provider/dashboard"
+      case "customer":
+        return "/dashboard"
+      default:
+        return "/"
+    }
+  }
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Services", href: "/services" },
@@ -86,18 +101,41 @@ const Navbar = () => {
                 <DropdownMenuItem>Logout</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            {isAuthenticated && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="hidden md:flex"
+                  >
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
 
-            {/* Auth Buttons (Static) */}
-            <Button variant="ghost" asChild className="hidden md:flex">
-              <Link to="/login">
-                <LogIn className="mr-2 h-4 w-4" />
-                Login
-              </Link>
-            </Button>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem asChild>
+                    <Link to={getDashboardRoute()}>Dashboard</Link>
+                  </DropdownMenuItem>
 
-            <Button asChild className="hidden md:flex">
-              <Link to="/signup">Sign Up</Link>
-            </Button>
+                  <DropdownMenuItem asChild>
+                    <Link to="/profile">Profile</Link>
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+
+            {isAuthenticated ? (
+              <Button asChild className="hidden md:flex">
+                <Link to={getDashboardRoute()}>Dashboard</Link>
+              </Button>
+            ) : (
+              <Button variant="outline" asChild className="hidden md:flex">
+                <Link to="/login">Login</Link>
+              </Button>
+            )}
 
             {/* Mobile Menu */}
             <Sheet>

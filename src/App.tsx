@@ -3,8 +3,7 @@ import DashboardLayout from "./layout/dashboard/DashboardLayout"
 
 import HomeLayout from "./layout/home/HomeLayout"
 import Home from "./Features/Home/pages/Home"
-import Login from "./Features/auth/Pages/Login"
-import Signup from "./Features/auth/Pages/Signup"
+
 import Service from "./Features/service/pages/Service"
 import AboutUs from "./Features/aboutus/pages/AboutUs"
 import Careers from "./Features/careers/pages/Careers"
@@ -29,17 +28,22 @@ import CategoryManagement from "./Features/auth/admin/pages/CategoryManagement"
 import BookingMonitoring from "./Features/auth/admin/pages/BookingMonitoring"
 import Reviews from "./Features/auth/admin/pages/Reviews"
 import ContactSubmissions from "./Features/auth/admin/pages/ContactSubmissions"
-import BookingDetail from "./Features/customer/BookingDetail"
 import Dashboard from "./Features/customer/Dashboard"
 import AdminDashboard from "./Features/auth/admin/pages/AdminDashboard"
+import { Toaster } from "sonner"
+import Login from "./Features/auth/Pages/Login"
+import Signup from "./Features/auth/Pages/Signup"
+import { ProtectedRoute, PublicRoute } from "./lib/ProtectedRoute"
 
 export function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route element={<PublicRoute />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Route>
           {/* <Route path="*" element={<NotFoundPage />} /> */}
           <Route element={<HomeLayout />}>
             <Route path="" element={<Home />} />
@@ -54,32 +58,42 @@ export function App() {
           </Route>
         </Routes>
         <Routes>
-          <Route element={<DashboardLayout />}>
-            <Route path="admin/dashboard" element={<AdminDashboard />} />
-            <Route path="admin/users" element={<UserManagement />} />
-            <Route path="admin/approvals" element={<ProviderApproval />} />
-            <Route path="admin/categories" element={<CategoryManagement />} />
-            <Route path="admin/Bookings" element={<BookingMonitoring />} />
-            <Route path="admin/reviews" element={<Reviews />} />
-            <Route path="admin/contact" element={<ContactSubmissions />} />
-
-            <Route path="provider/dashboard" element={<ProviderDashboard />} />
-            <Route path="provider/availability" element={<Availability />} />
-            <Route path="provider/requests" element={<BookingRequests />} />
-            <Route path="provider/earnings" element={<Earnings />} />
-            <Route path="provider/profile" element={<ProviderProfile />} />
-            <Route path="provider/jobs" element={<ActiveJobs />} />
-
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/bookings" element={<MyBookings />} />
-            <Route path="/reviews" element={<MyReviews />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/customer/bookings" element={<BookingDetail />} />
+          <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+            <Route element={<DashboardLayout />}>
+              <Route path="admin/dashboard" element={<AdminDashboard />} />
+              <Route path="admin/users" element={<UserManagement />} />
+              <Route path="admin/approvals" element={<ProviderApproval />} />
+              <Route path="admin/categories" element={<CategoryManagement />} />
+              <Route path="admin/Bookings" element={<BookingMonitoring />} />
+              <Route path="admin/reviews" element={<Reviews />} />
+              <Route path="admin/contact" element={<ContactSubmissions />} />
+            </Route>
           </Route>
+          <Route element={<ProtectedRoute allowedRoles={["provider"]} />}>
+            <Route element={<DashboardLayout />}>
+              <Route
+                path="provider/dashboard"
+                element={<ProviderDashboard />}
+              />
+              <Route path="provider/availability" element={<Availability />} />
+              <Route path="provider/requests" element={<BookingRequests />} />
+              <Route path="provider/earnings" element={<Earnings />} />
+              <Route path="provider/profile" element={<ProviderProfile />} />
+              <Route path="provider/jobs" element={<ActiveJobs />} />
+            </Route>
+          </Route>
+          <Route element={<ProtectedRoute allowedRoles={["customer"]} />}>
+            <Route element={<DashboardLayout />}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="bookings" element={<MyBookings />} />
+              <Route path="reviews" element={<MyReviews />} />
+              <Route path="profile" element={<Profile />} />
+            </Route>{" "}
+          </Route>{" "}
         </Routes>
+        <Toaster richColors position="top-right" />
       </BrowserRouter>
     </>
   )
 }
-
 export default App

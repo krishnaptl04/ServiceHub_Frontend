@@ -15,16 +15,9 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Bell, Sun, Moon, User, Settings, LogOut } from "lucide-react"
 
 import { Link } from "react-router-dom"
+import { useAuthStore } from "@/store/useAuthStore"
 
 /* ---------------- DATA ---------------- */
-
-const portal = {
-  role: "Provider",
-  user: {
-    name: "John Doe",
-    email: "john@example.com",
-  },
-}
 
 const notifications = 3
 
@@ -36,7 +29,9 @@ const profileMenu = [
 /* ---------------- COMPONENT ---------------- */
 
 const Topbar = () => {
-  const initials = portal.user.name
+  const { logout, user } = useAuthStore()
+
+  const initials = user?.name
     .split(" ")
     .map((n) => n[0])
     .join("")
@@ -50,11 +45,11 @@ const Topbar = () => {
         {/* Portal Title */}
         <div className="flex-1">
           <h2 className="text-sm font-semibold lg:text-base">
-            {portal.role} Portal
+            {user?.role} Portal
           </h2>
 
           <p className="hidden text-xs text-muted-foreground sm:block">
-            Welcome back, {portal.user.name}
+            Welcome back, {user?.name}
           </p>
         </div>
 
@@ -83,16 +78,16 @@ const Topbar = () => {
                   <AvatarFallback>{initials}</AvatarFallback>
                 </Avatar>
 
-                <span className="hidden md:block">{portal.user.name}</span>
+                <span className="hidden md:block">{user?.name}</span>
               </Button>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="end">
               <div className="px-2 py-1.5 text-sm">
-                <div className="font-medium">{portal.user.name}</div>
+                <span className="hidden md:block">{user?.name}</span>
 
                 <div className="text-xs text-muted-foreground">
-                  {portal.user.email}
+                  {user?.email}
                 </div>
               </div>
 
@@ -120,7 +115,7 @@ const Topbar = () => {
 
               <DropdownMenuSeparator />
 
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={logout}>
                 <LogOut className="mr-2 h-4 w-4" />
                 Logout
               </DropdownMenuItem>
