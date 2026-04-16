@@ -16,6 +16,7 @@ import { Bell, Sun, Moon, User, Settings, LogOut } from "lucide-react"
 
 import { Link } from "react-router-dom"
 import { useAuthStore } from "@/store/useAuthStore"
+import { ThemeToggle } from "@/components/ThemeToggle"
 
 /* ---------------- DATA ---------------- */
 
@@ -65,10 +66,7 @@ const Topbar = () => {
           </Button>
 
           {/* Theme Button (UI only) */}
-          <Button variant="ghost" size="icon">
-            <Sun className="h-5 w-5" />
-            <Moon className="absolute h-5 w-5 opacity-0" />
-          </Button>
+          <ThemeToggle />
 
           {/* User Dropdown */}
           <DropdownMenu>

@@ -1,3 +1,4 @@
+import { ThemeToggle } from "@/components/ThemeToggle"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -69,38 +70,9 @@ const Navbar = () => {
           {/* Right Section */}
           <div className="flex items-center gap-4">
             {/* Theme Icon (UI only) */}
-            <Button variant="ghost" size="icon">
-              <Sun className="h-5 w-5" />
-            </Button>
-
+            <ThemeToggle />
             {/* Profile Dropdown (Static) */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="hidden md:flex">
-                  <User className="h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
 
-              <DropdownMenuContent align="end">
-                <div className="px-2 py-1.5 text-sm font-medium">John Doe</div>
-                <div className="px-2 py-1.5 text-xs text-muted-foreground">
-                  john@example.com
-                </div>
-
-                <DropdownMenuSeparator />
-
-                <DropdownMenuItem asChild>
-                  <Link to="/dashboard">
-                    <LayoutDashboard className="mr-2 h-4 w-4" />
-                    Dashboard
-                  </Link>
-                </DropdownMenuItem>
-
-                <DropdownMenuSeparator />
-
-                <DropdownMenuItem>Logout</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
             {isAuthenticated && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -114,13 +86,23 @@ const Navbar = () => {
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem asChild>
-                    <Link to={getDashboardRoute()}>Dashboard</Link>
-                  </DropdownMenuItem>
+                  <div className="px-2 py-1.5 text-sm font-medium">
+                    {user?.name}
+                  </div>
+                  <div className="px-2 py-1.5 text-xs text-muted-foreground">
+                    {user?.email || " "}
+                  </div>
+
+                  <DropdownMenuSeparator />
 
                   <DropdownMenuItem asChild>
-                    <Link to="/profile">Profile</Link>
+                    <Link to={getDashboardRoute()}>
+                      <LayoutDashboard className="mr-2 h-4 w-4" />
+                      Dashboard
+                    </Link>
                   </DropdownMenuItem>
+
+                  <DropdownMenuSeparator />
 
                   <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
                 </DropdownMenuContent>
